@@ -8,6 +8,7 @@ import { AuthService } from '../auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import * as dotenv from 'dotenv';
+import { EmailService } from './email.service';
 dotenv.config(); // Load environment variables
 
 @Module({
@@ -19,6 +20,6 @@ dotenv.config(); // Load environment variables
     }),
   ],
   controllers: [AdminController],
-  providers: [AdminService, AuthService, JwtStrategy],
+  providers: [AdminService, AuthService, JwtStrategy,EmailService],
 })
 export class AdminModule {}
