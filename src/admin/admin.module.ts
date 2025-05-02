@@ -9,17 +9,24 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import * as dotenv from 'dotenv';
 import { EmailService } from './email.service';
+import { PerformanceController } from './performance/performance.controller';
+import { PerformanceService } from './performance/performance.service';
+import { Client } from './Entity/Client.entity';
+import { Trainer } from './Entity/Trainer.entity';
+import { Nutritionist } from './Entity/Nutritionist.entity';
+import { NutritionistRating } from './Entity/NutritionistRating.entity';
+import { TrainerRating } from './Entity/TrainerRating.entity';
 dotenv.config(); // Load environment variables
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([PendingUsers, Users]),
+    TypeOrmModule.forFeature([PendingUsers, Users,Client, Trainer, Nutritionist, NutritionistRating,TrainerRating]),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1h' },
     }),
   ],
-  controllers: [AdminController],
-  providers: [AdminService, AuthService, JwtStrategy,EmailService],
+  controllers: [AdminController, PerformanceController],
+  providers: [AdminService, AuthService, JwtStrategy,EmailService, PerformanceService],
 })
 export class AdminModule {}

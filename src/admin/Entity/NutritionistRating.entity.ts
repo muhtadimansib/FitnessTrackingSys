@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 import {Nutritionist} from "./Nutritionist.entity";
 import { Client } from './Client.entity';
 
@@ -8,6 +8,7 @@ export class NutritionistRating {
   id: number;
 
   @ManyToOne(() => Nutritionist, (nutritionist) => nutritionist.ratings)
+  @JoinColumn({ name: 'nutritionistId' })  
   nutritionist: Nutritionist;
 
   @ManyToOne(() => Client)
