@@ -2,11 +2,32 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PendingUsers } from './PendingUsers.entity';
+import { MessageService } from './message/message.service';
 
 @Injectable()
 export class AdminService {
 
-    constructor(@InjectRepository(PendingUsers) private PendingUsersRepo: Repository<PendingUsers>){}
+    constructor(
+        @InjectRepository(PendingUsers)
+        private PendingUsersRepo: Repository<PendingUsers>,
+        private readonly messageService: MessageService
+      ) {}
+
+    
+    async getDashboardInfo(user: any) {
+        const { password, ...withoutPassword } = user;
+    
+        const unreadCount = await this.messageService.countUnreadMessagesForUser(
+          user.email,
+          user.role,
+        );
+    
+        return {
+          message: 'Welcome to the Admin Dashboard',
+          user: withoutPassword,
+          unreadMessages: unreadCount,
+        };
+      }
 
     ShowPendingUsers()
         {

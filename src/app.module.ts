@@ -11,6 +11,7 @@ import { Nutritionist } from './admin/Entity/Nutritionist.entity';
 import { Trainer } from './admin/Entity/Trainer.entity';
 import { NutritionistRating } from './admin/Entity/NutritionistRating.entity';
 import { TrainerRating } from './admin/Entity/TrainerRating.entity';
+import { Message } from './admin/message/message.entity';
 
 @Module({
   imports: [AdminModule,TypeOrmModule.forRoot({
@@ -27,7 +28,8 @@ import { TrainerRating } from './admin/Entity/TrainerRating.entity';
       Nutritionist,
       Trainer,
       NutritionistRating,
-      TrainerRating
+      TrainerRating,
+      Message
     ],
     synchronize: true,
   }),AuthModule],

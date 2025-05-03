@@ -17,14 +17,8 @@ export class AdminController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @Get('dashboard')
-  getDashboard(@Req() req: any) {
-    const {password,role,...withoutPassword}=req.user
-
-
-    return {
-      message: 'Welcome to the Admin Dashboard',
-      user: withoutPassword,
-    };
+  async getDashboard(@Req() req: any) {
+    return this.adminService.getDashboardInfo(req.user);
   }
 
 
