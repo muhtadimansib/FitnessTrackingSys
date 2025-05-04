@@ -1,7 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,CreateDateColumn,
-  UpdateDateColumn,JoinColumn } from 'typeorm';
+  UpdateDateColumn,JoinColumn, 
+  OneToMany} from 'typeorm';
 import {Nutritionist} from "./Nutritionist.entity";
 import { Trainer } from './Trainer.entity';
+import { ClientGoal } from './Client-goal.entity';
 
 @Entity()
 export class Client {
@@ -54,4 +56,7 @@ export class Client {
   
   @ManyToOne(() => Nutritionist, (nutritionist) => nutritionist.clients, { nullable: true })
   nutritionist: Nutritionist;
+
+  @OneToMany(() => ClientGoal, (goal) => goal.client)
+  goals: ClientGoal[];
 }

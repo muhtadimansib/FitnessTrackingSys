@@ -18,18 +18,26 @@ import { NutritionistRating } from './Entity/NutritionistRating.entity';
 import { TrainerRating } from './Entity/TrainerRating.entity';
 import { MessageModule } from './message/message.module';
 import { Message } from './message/message.entity';
+import { ClientGoal } from './Entity/Client-goal.entity';
+import { DailyActivity } from './Entity/Daily-activity-logs.entity';
+import { WorkoutDietLog } from './Entity/Workout-diet-logs.enitity';
+import { ClientProgressModule } from './client-progress/client-progress.module';
+import { ClientProgressController } from './client-progress/client-progress.controller';
+import { ClientProgressService } from './client-progress/client-progress.service';
+
 dotenv.config(); // Load environment variables
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([PendingUsers, Users,Client, Trainer, Nutritionist, NutritionistRating,TrainerRating,Message]),
+    TypeOrmModule.forFeature([PendingUsers, Users,Client, Trainer, Nutritionist, NutritionistRating,TrainerRating,Message,ClientGoal,DailyActivity,WorkoutDietLog]),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1h' },
     }),
     MessageModule,
+    ClientProgressModule,
   ],
-  controllers: [AdminController, PerformanceController],
-  providers: [AdminService, AuthService, JwtStrategy,EmailService, PerformanceService],
+  controllers: [AdminController, PerformanceController,ClientProgressController],
+  providers: [AdminService, AuthService, JwtStrategy,EmailService, PerformanceService,ClientProgressService],
 })
 export class AdminModule {}

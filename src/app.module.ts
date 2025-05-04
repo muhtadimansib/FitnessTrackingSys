@@ -12,6 +12,11 @@ import { Trainer } from './admin/Entity/Trainer.entity';
 import { NutritionistRating } from './admin/Entity/NutritionistRating.entity';
 import { TrainerRating } from './admin/Entity/TrainerRating.entity';
 import { Message } from './admin/message/message.entity';
+import { ClientGoal } from './admin/Entity/Client-goal.entity';
+import { DailyActivity } from './admin/Entity/Daily-activity-logs.entity';
+import { WorkoutDietLog } from './admin/Entity/Workout-diet-logs.enitity';
+
+
 
 @Module({
   imports: [AdminModule,TypeOrmModule.forRoot({
@@ -29,11 +34,14 @@ import { Message } from './admin/message/message.entity';
       Trainer,
       NutritionistRating,
       TrainerRating,
-      Message
+      Message,
+      ClientGoal,
+      DailyActivity,
+      WorkoutDietLog
     ],
     synchronize: true,
   }),AuthModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}
