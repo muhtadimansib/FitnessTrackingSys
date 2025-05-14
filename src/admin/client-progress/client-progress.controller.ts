@@ -37,6 +37,18 @@ export class ClientProgressController {
     };
   }
 
+    @Get('sleep-efficiency-vs-calories/:clientId')
+  async getSleepEfficiencyVsCaloriesChart(@Param('clientId') clientId: number) {
+    const chartUrl = await this.service.generateSleepEfficiencyVsCaloriesChart(clientId);
+    return { chartUrl };
+  }
+
+  
+  @Get(':clientId/bubble-chart')
+  async getBubbleChart(@Param('clientId') clientId: number) {
+    const chartUrl = await this.service.generateBubbleChart(clientId);
+    return { chartUrl };
+  }
   // Export client progress to Excel
   // @Get('progress/:clientId/export-excel')
   // async exportExcel(@Param('clientId', ParseIntPipe) clientId: number, @Res() res: Response) {
@@ -47,4 +59,25 @@ export class ClientProgressController {
   //   });
   //   res.send(buffer);
   // }
+
+    @Get(':clientId/pdf')
+  async exportProgressAsPDF(
+    @Param('clientId') clientId: number,
+    @Res() res: Response,
+  ) {
+    try {
+      const pdfBuffer = await this.service.exportProgressAsPDFwithChart(clientId);
+      
+      // Set the response header for PDF download
+      res.setHeader('Content-Type', 'application/pdf');
+      
+      res.setHeader('Content-Disposition', `attachment; filename=client-progress-${clientId}.pdf`);
+
+      // Send the PDF buffer as the response
+      res.end(pdfBuffer);
+    } catch (error) {
+      // Handle errors (e.g., no data found for the client)
+      res.status(500).send('Error generating PDF');
+    }
+  }
 }
