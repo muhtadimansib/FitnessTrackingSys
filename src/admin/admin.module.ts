@@ -24,6 +24,7 @@ import { WorkoutDietLog } from './Entity/Workout-diet-logs.enitity';
 import { ClientProgressModule } from './client-progress/client-progress.module';
 import { ClientProgressController } from './client-progress/client-progress.controller';
 import { ClientProgressService } from './client-progress/client-progress.service';
+import { AiSuggestionsModule } from './ai-suggestions/ai-suggestions.module';
 
 dotenv.config(); // Load environment variables
 
@@ -36,6 +37,7 @@ dotenv.config(); // Load environment variables
     }),
     MessageModule,
     ClientProgressModule,
+    AiSuggestionsModule,
   ],
   controllers: [AdminController, PerformanceController,ClientProgressController],
   providers: [AdminService, AuthService, JwtStrategy,EmailService, PerformanceService,ClientProgressService],
