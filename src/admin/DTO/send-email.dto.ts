@@ -1,4 +1,4 @@
-import { IsArray, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class SendEmailDto {
   @IsArray()
@@ -12,4 +12,9 @@ export class SendEmailDto {
   @IsString()
   @IsNotEmpty()
   message: string;
+
+  
+  @IsOptional()
+  @IsString()
+   attachments?: { filename: string; path: string }[];
 }

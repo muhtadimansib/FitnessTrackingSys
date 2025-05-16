@@ -420,14 +420,17 @@ async exportProgressAsPDFwithChart(clientId: number): Promise<Buffer> {
     }
   });
 
-    // 📁 Ensure the directory exists
+  //Ensure the directory exists
   const exportDir = path.join(process.cwd(), 'exports'); // writes to project root
   if (!fs.existsSync(exportDir)) {
     fs.mkdirSync(exportDir, { recursive: true });
   }
 
-  // 📄 Define file path
-  const filePath = path.join(exportDir, `client-progress-${clientId}.pdf`);
+  //Define file path
+  //const filePath = path.join(exportDir, `client-progress-${clientId}.pdf`);
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); // e.g., 2025-05-16T12-30-59-123Z
+  const filePath = path.join(exportDir, `client-progress-${clientId}-${timestamp}.pdf`);
+
   const fileStream = fs.createWriteStream(filePath);
 
   doc.pipe(stream);
